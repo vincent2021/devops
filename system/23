@@ -1,0 +1,4 @@
+Changer le user:
+Terminal: su <user>
+SSH: <user>@<host>
+GUI: En haut a droite, username et Log Out
