@@ -1,0 +1,9 @@
+#!/bin/bash
+USER_CFG=$USER
+
+su root -c "apt-get update && apt-get upgrade && apt-get install sudo && adduser $USER_CFG && adduser $USER_CFG sudo"
+
+sudo apt-get install zsh curl git
+sudo sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sudo apt-get upgrade vim && cd
+echo "set number\nsyntax on\n set mouse=a" > .vimrc
