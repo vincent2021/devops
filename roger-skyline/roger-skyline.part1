@@ -73,6 +73,8 @@ sudo vi /etc/portsentry/portsentry.conf
 BLOCK_UDP="1"
 BLOCK_TCP="1"
 
+Solution alternative: nmap
+
 --Question 8--
 sudo service --status-all
 Keep cron, ssh, sudo, ufw, fail2ban, portsentry, networking, udev, ntp
