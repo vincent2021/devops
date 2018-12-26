@@ -1,0 +1,1 @@
+docker run -it --stop-signal SIGTERM alpine

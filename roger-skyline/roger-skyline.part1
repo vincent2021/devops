@@ -1,0 +1,102 @@
+--Question 1--
+#upgrade
+apt-get update && apt-get upgrade
+apt-get install git curl zsh
+#create a user
+adduser vimucchi
+
+--Question 2--
+#Install sudo
+apt-get install sudo
+#shell config
+chsh -s /bin/zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+--Question 3--
+#Mettre une IP fixe
+vi /etc/network/interface (inet static + adress // netmask 255.255.255.255)
+
+--Question 4--
+#Configurer SSH
+vi /etc/ssh/sshd_config
+PermitRootLogin -> no
+Port 2222
+#Creer un dossier de cle SSH
+mkdir ~/.ssh && touch ~/.ssh/authorized_keys
+chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+#Generere une cle sur la machine local
+ssh-keygen
+ssh-copy-id vimucchi@hostname
+ou (scp ~/.ssh/id_rsa.pub vimucchi@:~/.ssh/authorized_keys)
+#Supprimer la connexion par Mot de passe
+PasswordAuthentication no
+PubkeyAuthentication yes
+
+--Question 5--
+sudo apt-get install ufw
+sudo ufw status
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+#connexion SSH sur le port 2222
+sudo ufw allow 2222/tcp
+
+--Question 6--
+sudo apt-get install fail2ban
+sudo vi /etc/fail2ban/jail.conf
+(add my own Public IP & switch banaction to ufw)
+
+Ajouter un Jail tel que
+[sshd]
+enabled = true
+port    = 2222
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+
+--Question 7--
+sudo apt-get install portsentry
+#Add my own public IP
+sudo vi /etc/portsentry/portsentry.ignore.static
+# Set Portsentry to auto mode
+sudo vi /etc/default/portsentry
+TCP_MODE="atcp"
+UDP_MODE="audp"
+# blocage en cas de detection d’attaque
+BLOCK_UDP="1"
+BLOCK_TCP="1"
+
+--Question 8--
+sudo service --status-all
+Keep cron, ssh, sudo, ufw, fail2ban, portsentry, networking, udev, ntp
+sudo service XXX stop
+
+--Question 9 --
+//Script Begins
+#!/bin/bash
+
+TMP=$(mktemp)
+
+cp /var/log/update_script.log $TMP
+apt-get update >> $TMP
+apt-get upgrade >> $TMP
+mv $TMP /var/log/update_script.log
+//Script End
+
+sudo crontab -e
+0 4 * * * sh /usr/etc/cron_apt_maj.sh
+
+--Question 10--
+sudo apt-get install mailutils
+//Script Begins
+#!/bin/bash
+
+OLDSUM=`cat /var/lib/cron.md5`
+NEWSUM=`md5sum /etc/crontab`
+
+if [ "$OLDSUM" != "$NEWSUM" ]
+then
+	md5sum /etc/crontab > /var/lib/cron.md5
+  echo "WARNING - CONNECT TO YOUR SERVER NOW TO CHECK CRON JOBS" | mail -s "The file crontab was modified" root@localhost.com
+fi
+//Script End
+sudo crontab -e
+0 0 * * * sh /usr/etc/cron_integrity.sh
