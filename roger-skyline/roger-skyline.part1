@@ -14,23 +14,28 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 --Question 3--
 #Mettre une IP fixe
-vi /etc/network/interface (inet static + adress // netmask 255.255.255.255)
+sudo vi /etc/network/interfaces
+//Ecrire inet static
+	address 192.168.0.42
+	netmask 255.255.255.255
 
 --Question 4--
 #Configurer SSH
-vi /etc/ssh/sshd_config
+sudo vi /etc/ssh/sshd_config
 PermitRootLogin -> no
 Port 2222
+#restart le service et verifie la connexion
+sudo service ssh restart
+
 #Creer un dossier de cle SSH
 mkdir ~/.ssh && touch ~/.ssh/authorized_keys
 chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
 #Generere une cle sur la machine local
 ssh-keygen
 ssh-copy-id vimucchi@hostname
-ou (scp ~/.ssh/id_rsa.pub vimucchi@:~/.ssh/authorized_keys)
 #Supprimer la connexion par Mot de passe
 PasswordAuthentication no
-PubkeyAuthentication yes
+#restart le service et verifie la connexion
 
 --Question 5--
 sudo apt-get install ufw
@@ -39,6 +44,9 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 #connexion SSH sur le port 2222
 sudo ufw allow 2222/tcp
+#on active le service et on CHECK
+sudo ufw enable
+sudo ufw status
 
 --Question 6--
 sudo apt-get install fail2ban
@@ -61,6 +69,7 @@ sudo vi /etc/default/portsentry
 TCP_MODE="atcp"
 UDP_MODE="audp"
 # blocage en cas de detection d’attaque
+sudo vi /etc/portsentry/portsentry.conf
 BLOCK_UDP="1"
 BLOCK_TCP="1"
 
@@ -70,7 +79,7 @@ Keep cron, ssh, sudo, ufw, fail2ban, portsentry, networking, udev, ntp
 sudo service XXX stop
 
 --Question 9 --
-//Script Begins
+//Script Begins - a placer au choix
 #!/bin/bash
 
 TMP=$(mktemp)
@@ -80,12 +89,12 @@ apt-get update >> $TMP
 apt-get upgrade >> $TMP
 mv $TMP /var/log/update_script.log
 //Script End
-
+rendre le script executable avec chmod +x cron_apt_maj.sh
 sudo crontab -e
 0 4 * * * sh /usr/etc/cron_apt_maj.sh
 
 --Question 10--
-sudo apt-get install mailutils
+sudo apt-get install -y mailutils
 //Script Begins
 #!/bin/bash
 

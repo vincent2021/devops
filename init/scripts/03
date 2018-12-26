@@ -1,9 +1,9 @@
 #!/bin/bash
-USER_CFG=$USER
+USER_CFG=read("Please type a new username:")
 
-su root -c "apt-get update && apt-get upgrade && apt-get install sudo && adduser $USER_CFG && adduser $USER_CFG sudo"
+su root -c "apt-get update -y && apt-get upgrade -y && apt-get install -y sudo && adduser $USER_CFG && adduser $USER_CFG sudo"
 
-sudo apt-get install zsh curl git
+sudo apt-get install -y zsh curl git build-essential net-tools
 sudo sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-sudo apt-get upgrade vim && cd
+sudo apt-get upgrade -y vim && cd
 echo "set number\nsyntax on\n set mouse=a" > .vimrc
