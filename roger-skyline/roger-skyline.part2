@@ -75,3 +75,5 @@ sudo service nginx restart
 
 ------------------ETAPE 2: Site Vitrine-------------
 #utilisation du template frugal base sur bootstrap: https://www.frugalprototype.com/un-site-vitrine-en-15-minutes-avec-bootstrap
+cd /var/www/html
+sudo curl -o vitrine.zip  "http://www.frugalprototype.com/wp-content/uploads/2015/11/vitrine.zip"
