@@ -2,7 +2,7 @@
 echo "Deploiement d'un serveur web..."
 
 #Installation de Nginx
-sudo apt-get install -y nginx
+sudo apt-get install -y nginx openssl
 echo "nginx installed"
 
 #Autoriser Nginx sur notre firewall
@@ -16,14 +16,14 @@ sudo openssl dhparam -out /etc/nginx/dhparam.pem 512
 sudo touch /etc/nginx/snippets/self-signed.conf
 sudo echo "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;\n" >> /etc/nginx/snippets/self-signed.conf
 sudo echo "ssl_certificate /etc/ssl/private/nginx-selfsigned.key;\n" >> /etc/nginx/snippets/self-signed.conf
-sudo cp ssl_params.conf /etc/nginx/snippets/
+sudo cp ./ssl_params.conf /etc/nginx/snippets/
 
-#parametrage du site
+#Parametrage du site
 sudo cp landing.conf /etc/nginx/sites-available
 sudo ln -s /etc/nginx/sites-available/landing.conf /etc/nginx/sites-enabled
 sudo rm -rf /etc/nginx/sites-enabled/default
 
-#redemarrer nginx
+#Redemarrer nginx
 sudo service nginx restart
 
 #Copie des fichiers web
