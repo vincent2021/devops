@@ -11,15 +11,16 @@ echo  -e "\033[33mufw rules modified\033[0m"
 
 echo  -e"\033[33mCreating auto-signed ssl\033[0m"
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt subj "/C=FR/CN=localhost"
-echo  -e"\033[33mCreating dh group - this may take a while"
+echo  -e"\033[33mCreating dh group - this may take a while\033[0m"
 sudo openssl dhparam -out /etc/nginx/dhparam.pem 512
+sudo touch /etc/nginx/snippets/self-signed.conf
 sudo echo -e "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;\nssl_certificate /etc/ssl/private/nginx-selfsigned.key;\n" > /etc/nginx/snippets/self-signed.conf
-sudo cp ssl_params.conf /etc/nginx/snippets/
+sudo cp ./ssl-params.conf /etc/nginx/snippets/
 
 #Parametrage du site
 echo  -e "\033[33mConfiguration du serveur/domain\033[0m"
 sudo cp landing.conf /etc/nginx/sites-available
-sudo ln -s /etc/nginx/sites-available/landing.conf /etc/nginx/sites-enabled > /dev/null
+sudo ln -s /etc/nginx/sites-available/landing.conf /etc/nginx/sites-enabled/landing.conf
 sudo rm -rf /etc/nginx/sites-enabled/default
 
 #Redemarrer nginx
