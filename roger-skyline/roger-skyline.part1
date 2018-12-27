@@ -77,23 +77,22 @@ Solution alternative: nmap
 
 --Question 8--
 sudo service --status-all
-Keep cron, ssh, sudo, ufw, fail2ban, portsentry, networking, udev, ntp
+Keep cron, ssh, sudo, ufw, fail2ban, portsentry, networking, udev, rsyslog
 sudo service XXX stop
 
 --Question 9 --
-//Script Begins - a placer au choix
+//Script Begins
 #!/bin/bash
 
-TMP=$(mktemp)
-
-cp /var/log/update_script.log $TMP
-apt-get update >> $TMP
-apt-get upgrade >> $TMP
-mv $TMP /var/log/update_script.log
+date >> /var/log/update_script.log
+apt-get update -y >> /var/log/update_script.log
+apt-get upgrade -y >> /var/log/update_script.log
 //Script End
 rendre le script executable avec chmod +x cron_apt_maj.sh
 sudo crontab -e
-0 4 * * * sh /usr/etc/cron_apt_maj.sh
+0 4 * * 1 sh /usr/etc/cron_apt_maj.sh
+@reboot sh /usr/etc/cron_apt_maj.sh
+#Pensez a rendre les scripts executable
 
 --Question 10--
 sudo apt-get install -y mailutils
@@ -106,7 +105,7 @@ NEWSUM=`md5sum /etc/crontab`
 if [ "$OLDSUM" != "$NEWSUM" ]
 then
 	md5sum /etc/crontab > /var/lib/cron.md5
-  echo "WARNING - CONNECT TO YOUR SERVER NOW TO CHECK CRON JOBS" | mail -s "The file crontab was modified" root@localhost.com
+  echo "WARNING - CONNECT TO YOUR SERVER NOW TO CHECK CRON JOBS" | mail -s "The file crontab was modified" root@localhost
 fi
 //Script End
 sudo crontab -e
