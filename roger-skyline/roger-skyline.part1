@@ -13,11 +13,19 @@ chsh -s /bin/zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 --Question 3--
+#Sur VirtualBox utiliser le premier adaptateur pour un reseau bridge ethernet - permet l'acces a internet
+#creer une seconde interface reseau (host-only) voir https://gist.github.com/pjdietz/5768124
+#Si IP du host-only adapteur est 192.168.56.1, l'ip de l'interfae sur la VM sera 192.168.56.2
 #Mettre une IP fixe
 sudo vi /etc/network/interfaces
-//Ecrire inet static
-	address 192.168.0.42
+//Ecrire
+auto en0psXX
+iface en0psXX inet static
+	address 192.168.56.2
 	netmask 255.255.255.252
+	network 192.168.56.1 #Address de vboxnet0
+	broadcast 192.168.56.3 #Calcul via le subnet determine par le netmask
+
 #Configuration sur le guest VirtualBox Host-Only Adapter with Static IP
 #https://gist.github.com/pjdietz/5768124
 
