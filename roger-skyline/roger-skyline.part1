@@ -18,6 +18,8 @@ sudo vi /etc/network/interfaces
 //Ecrire inet static
 	address 192.168.0.42
 	netmask 255.255.255.255
+#Configuration sur le guest VirtualBox Host-Only Adapter with Static IP
+#https://gist.github.com/pjdietz/5768124
 
 --Question 4--
 #Configurer SSH
