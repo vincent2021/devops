@@ -14,7 +14,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 echo  -e"\033[33mCreating dh group - this may take a while\033[0m"
 sudo openssl dhparam -out /etc/nginx/dhparam.pem 512
 sudo touch /etc/nginx/snippets/self-signed.conf
-sudo echo -e "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;\nssl_certificate /etc/ssl/private/nginx-selfsigned.key;\n" > /etc/nginx/snippets/self-signed.conf
+sudo echo -e "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;\nssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;\n" > /etc/nginx/snippets/self-signed.conf
 sudo cp ./ssl-params.conf /etc/nginx/snippets/
 
 #Parametrage du site
