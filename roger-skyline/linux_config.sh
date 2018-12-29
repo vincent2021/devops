@@ -16,7 +16,7 @@ echo  -e "\033[33mSwitching to ZSH & VIM upgrade\033[0m"
 chsh -s /bin/zsh
 chsh -s /bin/zsh $PERSO
 apt-get upgrade -y -qq vim
-echo -e "set nu\nsyntax on\nset mouse=a\n" > ~/.vimrc
+echo -e "set nu\nsyntax on\nset mouse=a\ncolo torte\n" > ~/.vimrc
 
 echo  -e "\033[33mSSH configuration: no root login & port 2222\033[0m"
 read -p "Press enter to edit the config file"
