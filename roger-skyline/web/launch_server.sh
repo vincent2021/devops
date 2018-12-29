@@ -1,5 +1,5 @@
 #!/bin/bash
-echo  -e "\033[33mDeploiement d'un serveur web...\033[0m"
+echo  -e "\033[33mDeploiement d'un serveur web (sudo mode)...\033[0m"
 
 #Installation de Nginx
 sudo apt-get install -y nginx openssl
