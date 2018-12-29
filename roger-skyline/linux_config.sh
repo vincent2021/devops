@@ -7,7 +7,7 @@ read -p "Configuration for $PERSO, press enter"
 echo  -e "\033[33mAPT update/upgrade & installation of required packages\033[0m"
 apt-get update -qq && apt-get upgrade -y -qq
 echo  -e "\033[33mInstsallation des packages\033[0m"
-apt-get install -y curl zsh sudo ufw fail2ban portsentry mailutils
+apt-get install -y cron curl zsh sudo ufw fail2ban portsentry mailutils
 
 echo  -e "\033[33mAdding your username to sudo group\033[0m"
 adduser $PERSO sudo
@@ -21,6 +21,8 @@ echo -e "set nu\nsyntax on\nset mouse=a\n" > ~/.vimrc
 echo  -e "\033[33mSSH configuration: no root login & port 2222\033[0m"
 read -p "Press enter to edit the config file"
 vi /etc/ssh/sshd_config
+mkdir /home/$PERSO/.ssh && touch /home/$PERSO/.ssh/authorized_keys
+chmod 700 /home/$PERSO/.ssh && chmod 600 /home/$PERSO/.ssh/authorized_keys
 
 echo  -e "\033[33mUFW firewall setup\033[0m"
 ufw default deny incoming
