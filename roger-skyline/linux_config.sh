@@ -25,7 +25,7 @@ vi /etc/ssh/sshd_config
 echo  -e "\033[33mUFW firewall setup\033[0m"
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow ssh
+ufw allow 2222/tcp
 ufw enable
 ufw status
 
@@ -44,11 +44,11 @@ cp -R cron_scripts /home/$PERSO
 chmod +x /home/$PERSO/cron_scripts/*
 
 crontask1="0 4 * * 1 sh /home/$PERSO/cron_scripts/cron_apt_maj.sh"
-(crontab -u root -l; echo "$crontask1" ) | crontab -u userhere -
+(crontab -u root -l; echo "$crontask1" ) | crontab -u root -
 crontask2="@reboot sh /home/$PERSO/cron_scripts/cron_apt_maj.sh"
-(crontab -u root -l; echo "$crontask2" ) | crontab -u userhere -
+(crontab -u root -l; echo "$crontask2" ) | crontab -u root -
 crontask3="0 0 * * * sh /home/$PERSO/cron_scripts/cron_integrity.sh"
-(crontab -u root -l; echo "$crontask3" ) | crontab -u userhere -
+(crontab -u root -l; echo "$crontask3" ) | crontab -u root -
 
 echo  -e "\033[33mAutomatic configuration done\nPlease complete the SSH configuration (keys auth).\n
 On host: command ssh-copy-id $PERSO@hostname, then on Guest's SSH config set PasswordAuthentication no & restart ssh\n
