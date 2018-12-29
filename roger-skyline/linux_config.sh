@@ -1,7 +1,7 @@
 #!/bin/bash
 echo  -e "\033[33mConfiguration of the UNIX OS (root required)\033[0m"
 echo -e "\033[31mPlease enter your personal username:\033[0m"
-read $PERSO
+read PERSO
 read -p "Configuration for $PERSO, press enter"
 
 echo  -e "\033[33maAPT update/upgrade & installation of required packages\033[0m"
@@ -11,7 +11,7 @@ apt-get install -y curl zsh sudo ufw fail2ban portsentry mailutils
 
 echo  -e "\033[33mAdding your username to sudo group\033[0m"
 adduser $PERSO sudo
-read -p "Checking"
+
 echo  -e "\033[33mSwitching to ZSH & VIM upgrade\033[0m"
 chsh -s /bin/zsh
 chsh -s /bin/zsh $PERSO
