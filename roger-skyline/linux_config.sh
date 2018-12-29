@@ -4,8 +4,8 @@ echo -e "\033[31mPlease enter your personal username:\033[0m"
 read PERSO
 read -p "Configuration for $PERSO, press enter"
 
-echo  -e "\033[33maAPT update/upgrade & installation of required packages\033[0m"
-apt-get update && apt-get upgrade -y
+echo  -e "\033[33mAPT update/upgrade & installation of required packages\033[0m"
+apt-get update -qq && apt-get upgrade -y -qq
 echo  -e "\033[33mInstsallation des packages\033[0m"
 apt-get install -y curl zsh sudo ufw fail2ban portsentry mailutils
 
@@ -15,7 +15,7 @@ adduser $PERSO sudo
 echo  -e "\033[33mSwitching to ZSH & VIM upgrade\033[0m"
 chsh -s /bin/zsh
 chsh -s /bin/zsh $PERSO
-apt-get upgrade -y vim
+apt-get upgrade -y -qq vim
 echo -e "set nu\nsyntax on\nset mouse=a\n" > ~/.vimrc
 
 echo  -e "\033[33mSSH configuration: no root login & port 2222\033[0m"
