@@ -21,8 +21,7 @@ echo -e "set nu\nsyntax on\nset mouse=a\n" > ~/.vimrc
 echo  -e "\033[33mSSH configuration: no root login & port 2222\033[0m"
 read -p "Press enter to edit the config file"
 vi /etc/ssh/sshd_config
-mkdir /home/$PERSO/.ssh && touch /home/$PERSO/.ssh/authorized_keys
-chmod 700 /home/$PERSO/.ssh && chmod 600 /home/$PERSO/.ssh/authorized_keys
+service ssh restart
 
 echo  -e "\033[33mUFW firewall setup\033[0m"
 ufw default deny incoming
@@ -52,8 +51,10 @@ crontask2="@reboot sh /home/$PERSO/cron_scripts/cron_apt_maj.sh"
 crontask3="0 0 * * * sh /home/$PERSO/cron_scripts/cron_integrity.sh"
 (crontab -u root -l; echo "$crontask3" ) | crontab -u root -
 
-echo  -e "\033[33mAutomatic configuration done\nPlease complete the SSH configuration (keys auth).\n
+echo  -e "\033[33mAutomatic configuration done\n
+Network: setup a fixed IP with a subnet-netmask /30, see https://gist.github.com/pjdietz/5768124\n
+Please also complete the SSH configuration (keys auth).\n
 On host: command ssh-copy-id $PERSO@hostname, then on Guest's SSH config set PasswordAuthentication no & restart ssh\n
-Network: setup a fixed IP with a subnet-netmask /30, see https://gist.github.com/pjdietz/5768124 \n Then reboot & stop undesired services !\n\033[0m"
+Then reboot & stop undesired services !\n\033[0m"
 read -p "Press enter to install oh_my_zsh and end the script"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

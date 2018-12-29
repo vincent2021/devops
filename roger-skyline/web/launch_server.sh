@@ -2,16 +2,16 @@
 echo  -e "\033[33mDeploiement d'un serveur web (sudo mode)...\033[0m"
 
 #Installation de Nginx
-sudo apt-get install -y nginx openssl
+sudo apt-get install -y -qq nginx openssl
 echo  -e "\033[33mNginx installed\033[0m"
 
 #Autoriser Nginx sur notre firewall
 sudo ufw allow 'Nginx Full'
 echo  -e "\033[33mufw rules modified\033[0m"
 
-echo  -e"\033[33mCreating auto-signed ssl\033[0m"
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt subj "/C=FR/CN=localhost"
-echo  -e"\033[33mCreating dh group - this may take a while\033[0m"
+echo  -e "\033[33mCreating auto-signed ssl\033[0m"
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+echo  -e "\033[33mCreating dh group - this may take a while\033[0m"
 sudo openssl dhparam -out /etc/nginx/dhparam.pem 512
 sudo touch /etc/nginx/snippets/self-signed.conf
 sudo echo -e "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;\nssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;\n" > /etc/nginx/snippets/self-signed.conf
