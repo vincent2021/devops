@@ -1,1 +1,1 @@
-command tail -f /var/log/syslog &
+tail -f /var/log/syslog &

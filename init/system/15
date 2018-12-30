@@ -1,1 +1,1 @@
-jobs | grep tail -f /var/log/syslog | kill %
+killall tail
