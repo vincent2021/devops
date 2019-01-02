@@ -1,1 +1,1 @@
-docker-machine create --driver virtualbox Aiur
+docker-machine create --driver virtualbox --virtualbox-boot2docker-url https://github.com/boot2docker/boot2docker/releases/download/v18.06.0-ce/boot2docker.iso Aiur
