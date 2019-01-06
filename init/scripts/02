@@ -1,4 +1,4 @@
 #!/bin/bash
 read -p "Please type the username to be deleted:" USER_TODEL
-sudo pkill -u $USER_TODEL
+sudo killall -KILL -u $USER_TODEL
 sudo userdel -r $USER_TODEL
