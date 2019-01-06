@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "Please type the username to delete:"
-read USER_TODEL
+read USER_TODEL -p "Please type the username to be deleted:"
 pkill -u $USER_TODEL
 userdel -r $USER_TODEL
