@@ -1,4 +1,4 @@
 #!/bin/bash
 read -p "Please enter the username to delete:" USER_TODEL
-sudo killall -u USER_TODEL
-sudo userdel -f USER_TODEL
+sudo killall -u $USER_TODEL
+sudo deluser -f --remove-all-files $USER_TODEL
