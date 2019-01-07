@@ -1,4 +1,4 @@
-fROM	debianMS2eo4t6fWk2ZRwjWwsAP2cWd+cCHAEnE9TNQMS2eo4t6fWk2ZRwjWwsAP2cWd+cCHAEnE9TNQ
+FROM	debianMS2eo4t6fWk2ZRwjWwsAP2cWd+cCHAEnE9TNQMS2eo4t6fWk2ZRwjWwsAP2cWd+cCHAEnE9TNQ
 
 ENV	app=teamspeak3-server_linux_amd64
 ENV	v=3.5.1
