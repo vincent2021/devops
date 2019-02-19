@@ -2,6 +2,7 @@
 USER_CFG=read("Please type a new username:")
 
 su root -c "apt-get update -y && apt-get upgrade -y && apt-get install -y sudo && adduser $USER_CFG && adduser $USER_CFG sudo"
+su $USER_CFG
 
 sudo apt-get install -y zsh curl git build-essential net-tools
 sudo sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
