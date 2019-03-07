@@ -62,5 +62,5 @@ sudo ufw allow 'Nginx Full'
 echo  -e "\033[33mufw rules modified, don't forget to modify fail2ban\n\033[0m"
 
 read -p "Press enter to install OpenLiteSpeed and Wordpress"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/litespeedtech/ols1clk/master/ols1clk.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/litespeedtech/ols1clk/master/ols1clk.sh)"
 echo  -e "\033[33mInstallation Complete. Please reboot!\n\033[0m"
