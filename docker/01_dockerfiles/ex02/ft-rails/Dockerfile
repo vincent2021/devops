@@ -5,3 +5,9 @@ RUN	apt-get update && apt-get upgrade -y \
 
 RUN	gem install rails && gem install bundler \
 	&& mkdir /opt/app
+
+WORKDIR /opt/app
+
+ONBUILD RUN app /opt/app
+
+ONBUILD RUN bundle install
