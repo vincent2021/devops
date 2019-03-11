@@ -1,7 +1,4 @@
-FROM	ruby
+FROM ft-rails:on-build
 
-RUN	apt-get update && apt-get upgrade -y \
-	&& apt-get install -y build-essential sqlite3 nodejs \
-
-RUN	gem install rails && gem install bundler \
-	&& mkdir /opt/app
+EXPOSE 3000
+CMD [ "rails" , "s", "-b", "0.0.0.0", "-p", "3000"]
