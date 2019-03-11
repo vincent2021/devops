@@ -1,9 +1,10 @@
 FROM debian
 
-ARG GITLAB_ADDR
+RUN apt-get update -q && apt-get install -y wget curl vim ca-certificates openssh-server postfix
 
-RUN apt-get update -q && apt-get install -y curl vim ca-certificates openssh-server postfix && \
-	curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh| bash && \
-	EXTERNAL_URL="$GITLAB_ADDR" apt-get install gitlab-ce
+RUN wget https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh && \
+	 chmod +x script.deb.sh && ./script.deb.sh && apt-get install -y gitlab-ce
 
 EXPOSE 22 80 443
+
+ENTRYPOINT (/opt/gitlab/embedded/bin/runsvdir-start &) && gitlab-ctl reconfigure && tail -f /dev/null
