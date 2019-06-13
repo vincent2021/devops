@@ -1,5 +1,0 @@
----
-applications:
-- name: GetStartedRubyRails
-  random-route: true
-  memory: 256M
