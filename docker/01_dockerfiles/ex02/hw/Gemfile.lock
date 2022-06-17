@@ -37,10 +37,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    concurrent-ruby (1.1.10)
     erubis (2.7.0)
     execjs (2.6.0)
     hike (1.2.3)
-    i18n (0.7.0)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     journey (1.0.4)
     jquery-rails (3.1.4)
       railties (>= 3.0, < 5.0)
@@ -98,12 +100,13 @@ GEM
       json (>= 1.8.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
-  rails (~> 3.2.22)
+  rails
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)
 
